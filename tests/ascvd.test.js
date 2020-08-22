@@ -1,4 +1,4 @@
-import { framingham, pooledCohort2013 } from './../src/ascvd/'
+import { framingham, pooledCohort2013 } from '../src/ascvd/all'
 
 import type { ASCVDData } from './../src/types/ASCVDData'
 
