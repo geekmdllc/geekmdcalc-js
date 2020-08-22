@@ -1,4 +1,5 @@
-import { ascvd } from './../src/ascvd'
+import { framingham, pooledCohort2013 } from './../src/ascvd/'
+
 import type { ASCVDData } from './../src/types/ASCVDData'
 
 const testCases = [
@@ -129,16 +130,12 @@ const mapToDataPlusResultObj = (td) => {
 }
 
 describe('ascvd test', () => {
-  it('throws a type error when not passed ASCVDData', () => {
-    expect(() => ascvd()).toThrow("Cannot read property 'type' of undefined")
-  })
-
   it('calculates a set of Framingham ASCVD scores correct', () => {
     testCases
       .map((c) => mapToDataPlusResultObj(c))
       .filter(({ ascvdData: { type } } = c) => type === 'framingham')
       .forEach(({ ascvdData: ad, score } = c) => {
-        expect(ascvd(ad)).toEqual(score)
+        expect(framingham(ad)).toEqual(score)
       })
   })
 
@@ -147,7 +144,7 @@ describe('ascvd test', () => {
       .map((c) => mapToDataPlusResultObj(c))
       .filter(({ ascvdData: { type } } = c) => type === 'pooled13')
       .forEach(({ ascvdData: ad, score } = c) => {
-        expect(ascvd(ad)).toEqual(score)
+        expect(pooledCohort2013(ad)).toEqual(score)
       })
   })
 })
