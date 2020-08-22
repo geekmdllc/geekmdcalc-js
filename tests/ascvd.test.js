@@ -128,6 +128,8 @@ const testCases = [
   ['pooled13', 41, true, true, true, true, true, 140, 30, 150, 2.4, 23.2],
 ]
 
+const resultVariance = 0.1
+
 const mapToDataPlusFraminghamResult = (td) => {
   const ascvdData: ASCVDData = {
     age: td[1],
@@ -164,13 +166,33 @@ const mapToDataPlusPooledCohort2013Result = (td) => {
 }
 
 describe('ascvd test', () => {
+  it("approximates the appropriate 10 year risk for 'case 2' from the Framingham Study", () => {
+    const ascvdData: ASCVDData = {
+      age: 53,
+      isDiabetic: true,
+      isGeneticMale: true,
+      isBlack: false,
+      isSmoker: false,
+      isOnBloodPressureMeds: true,
+      cholesterolTotal: 161,
+      cholesterolHDL: 55,
+      systolicBloodPressure: 125,
+    }
+    const actual = framingham(ascvdData).tenYearRisk
+    const expected = 10.48
+
+    expect(actual).toBeLessThan(expected + resultVariance)
+    expect(actual).toBeGreaterThan(expected - resultVariance)
+  })
+
   it('calculates the 10 year risk for the Framingham percent risk of an ASCVD event correctly', () => {
     testCases
       .map((c) => mapToDataPlusFraminghamResult(c))
       .filter(({ type } = c) => type === 'framingham')
       .forEach(({ ascvdData, tenYearRisk: expected } = c) => {
         const actual = framingham(ascvdData).tenYearRisk
-        expect(actual).toEqual(expected)
+        expect(actual).toBeLessThan(expected + resultVariance)
+        expect(actual).toBeGreaterThan(expected - resultVariance)
       })
   })
 
@@ -180,7 +202,8 @@ describe('ascvd test', () => {
       .filter(({ type } = c) => type === 'framingham')
       .forEach(({ ascvdData, averageTenYearRisk: expected } = c) => {
         const actual = framingham(ascvdData).averageTenYearRisk
-        expect(actual).toEqual(expected)
+        expect(actual).toBeLessThan(expected + resultVariance)
+        expect(actual).toBeGreaterThan(expected - resultVariance)
       })
   })
 
@@ -190,7 +213,8 @@ describe('ascvd test', () => {
       .filter(({ type } = c) => type === 'pooled13')
       .forEach(({ ascvdData, tenYearRisk: expected } = c) => {
         const actual = pooledCohort2013(ascvdData).tenYearRisk
-        expect(actual).toEqual(expected)
+        expect(actual).toBeLessThan(expected + resultVariance)
+        expect(actual).toBeGreaterThan(expected - resultVariance)
       })
   })
 
@@ -200,7 +224,8 @@ describe('ascvd test', () => {
       .filter(({ type } = c) => type === 'pooled13')
       .forEach(({ ascvdData, lifetimeRisk: expected } = c) => {
         const actual = pooledCohort2013(ascvdData).lifetimeRisk
-        expect(actual).toEqual(expected)
+        expect(actual).toBeLessThan(expected + resultVariance)
+        expect(actual).toBeGreaterThan(expected - resultVariance)
       })
   })
 })
