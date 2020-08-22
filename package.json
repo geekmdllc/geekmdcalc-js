@@ -7,7 +7,8 @@
     "build/**/*.js"
   ],
   "scripts": {
-    "build": "rollup -c"
+    "build": "flow; rollup -c",
+    "test": "flow; jest"
   },
   "repository": {
     "type": "git",
@@ -26,8 +27,13 @@
     "@babel/preset-env": "^7.11.0",
     "@babel/preset-flow": "^7.10.4",
     "@rollup/plugin-babel": "^5.2.0",
+    "babel-jest": "^26.3.0",
     "flow-bin": "^0.132.0",
     "prettier": "^2.0.5",
     "rollup": "^2.26.4"
+  },
+  "devDependencies": {
+    "flow-typed": "^3.2.1",
+    "jest": "^26.4.1"
   }
 }

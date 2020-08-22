@@ -1,14 +1,16 @@
 // @flow
 
 export type ASCVDData = {
-  type: String,
+  type: string,
   bioData: {
-    age: Number,
-    isDiabetic: Boolean,
-    isGeneticMale: Boolean,
-    isBlack: Boolean,
-    isSmoker: Boolean,
-    cholesterolTotal: Number,
-    cholesterolHDL: Number,
+    age: number,
+    isDiabetic: boolean,
+    isGeneticMale: boolean,
+    isBlack: boolean,
+    isOnBloodPressureMeds: boolean,
+    isSmoker: boolean,
+    cholesterolTotal: number,
+    cholesterolHDL: number,
+    systolicBloodPressure: number,
   },
 }

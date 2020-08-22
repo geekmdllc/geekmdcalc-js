@@ -2,8 +2,8 @@
 
 import type { ASCVDData } from './types/ASCVDData'
 
-const ascvdFramingham = (data: ASCVDData): Number => {
-  throw new Error('ascvdFramingham is not yet implemented.')
+const ascvdFramingham = (data: ASCVDData): number => {
+  return -1
 }
 
 export { ascvdFramingham }
