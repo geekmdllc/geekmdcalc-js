@@ -3,69 +3,165 @@
 import type { ASCVDData, FraminghamResult } from '../types/ASCVDData'
 
 // https://www.ahajournals.org/doi/10.1161/circulationaha.107.699579
+// NOTE: it would appear that 'log' is 'ln'.
 const framingham = (data: ASCVDData): FraminghamResult => {
-  const badResult: FraminghamResult = {
-    tenYearRisk: -1,
+  const { coefficient: cd } = data.isGeneticMale
+    ? regressionData.male
+    : regressionData.female
+
+  const md = data.isGeneticMale ? meanData.male : meanData.female
+  const so10 = data.isGeneticMale
+    ? regressionData.male.so10
+    : regressionData.female.so10
+
+  const sumBX =
+    lnAgeValue(data) +
+    lnCholTotalValue(data) +
+    lnCholHDLValue(data) +
+    lnSBPValue(data) +
+    smokingValue(data) +
+    diabetesValue(data)
+
+  const sumBXbar =
+    md.age * cd.lnAge +
+    md.cholTotal * cd.lnCholTotal +
+    md.cholHDL * cd.lnCholHDL +
+    md.SBP *
+      (data.isOnBloodPressureMeds ? cd.lnSBPTreated : cd.lnSBPUntreated) +
+    (md.smokingPercent / 100) * cd.smoking +
+    (md.diabetesPercent / 100) * cd.diabetes
+
+  const result = 1 - Math.pow(so10, sumBX - sumBXbar)
+  const framinghamResult: FraminghamResult = {
+    tenYearRisk: result,
     averageTenYearRisk: -1,
   }
-  return badResult
+
+  return framinghamResult
 }
 
 export { framingham }
 
-const agePoints = (data: ASCVDData): number => {
-  return data.isGeneticMale ? agePointsMale(data) : agePointsFemale(data)
+const lnAgeValue = (data: ASCVDData): number => {
+  const x = Math.log(data.age)
+  const {
+    coefficient: { lnAge: b },
+  } = data.isGeneticMale ? regressionData.male : regressionData.female
+
+  return x * b
 }
 
-const agePointsFemale = (data: ASCVDData): number => {
-  throw new Error('Not implemented')
+const lnCholTotalValue = (data: ASCVDData): number => {
+  const x = Math.log(data.cholesterolTotal)
+  const {
+    coefficient: { lnCholTotal: b },
+  } = data.isGeneticMale ? regressionData.male : regressionData.female
+
+  return x * b
 }
 
-const agePointsMale = (data: ASCVDData): number => {
-  throw new Error('Not implemented')
+const lnCholHDLValue = (data: ASCVDData): number => {
+  const x = Math.log(data.cholesterolHDL)
+  const {
+    coefficient: { lnCholHDL: b },
+  } = data.isGeneticMale ? regressionData.male : regressionData.female
+
+  return x * b
+}
+
+const lnSBPValue = (data: ASCVDData): number => {
+  const x = Math.log(data.systolicBloodPressure)
+  const { coefficient: c } = data.isGeneticMale
+    ? regressionData.male
+    : regressionData.female
+
+  const b = data.isOnBloodPressureMeds ? c.lnSBPTreated : c.lnSBPUntreated
+
+  return x * b
+}
+
+const smokingValue = (data: ASCVDData): number => {
+  const x = data.isSmoker ? 1 : 0
+  const {
+    coefficient: { smoking: b },
+  } = data.isGeneticMale ? regressionData.male : regressionData.female
+
+  return x * b
+}
+
+const diabetesValue = (data: ASCVDData): number => {
+  const x = data.isDiabetic ? 1 : 0
+  const {
+    coefficient: { diabetes: b },
+  } = data.isGeneticMale ? regressionData.male : regressionData.female
+
+  return x * b
+}
+
+const meanData = {
+  female: {
+    age: 49.1,
+    cholTotal: 215.1,
+    cholHDL: 57.6,
+    SBP: 125.8,
+    BPTreatedPercent: 11.76,
+    smokingPercent: 34.23,
+    diabetesPercent: 3.76,
+    CVDIncidentPercent: 10.08,
+  },
+  male: {
+    age: 48.5,
+    cholTotal: 212.5,
+    cholHDL: 44.9,
+    SBP: 129.7,
+    BPTreatedPercent: 10.3,
+    smokingPercent: 35.22,
+    diabetesPercent: 6.5,
+    CVDIncidentPercent: 18.09,
+  },
 }
 
 const regressionData = {
   female: {
     so10: 0.95012,
     coefficient: {
-      logAge: 2.32888,
-      logCholTotal: 1.20904,
-      logCholHDL: -0.70833,
-      logSBPUntreated: 2.76157,
-      logSBPTreated: 2.82263,
+      lnAge: 2.32888,
+      lnCholTotal: 1.20904,
+      lnCholHDL: -0.70833,
+      lnSBPUntreated: 2.76157,
+      lnSBPTreated: 2.82263,
       smoking: 0.52873,
       diabetes: 0.69154,
     },
     hazardRatio: {
-      logAge: 10.27,
-      logCholTotal: 3.35,
-      logCholHDL: 0.49,
-      logSBPUntreated: 15.82,
-      logSBPTreated: 16.82,
+      lnAge: 10.27,
+      lnCholTotal: 3.35,
+      lnCholHDL: 0.49,
+      lnSBPUntreated: 15.82,
+      lnSBPTreated: 16.82,
       smoking: 1.7,
       diabetes: 2.0,
     },
-    male: {
-      so10: 0.88936,
-      coefficient: {
-        logAge: 3.06117,
-        logCholTotal: 1.1237,
-        logCholHDL: -0.93263,
-        logSBPUntreated: 1.93303,
-        logSBPTreated: 1.99881,
-        smoking: 0.65451,
-        diabetes: 0.57367,
-      },
-      hazardRatio: {
-        logAge: 21.35,
-        logCholTotal: 3.08,
-        logCholHDL: 0.39,
-        logSBPUntreated: 6.91,
-        logSBPTreated: 7.38,
-        smoking: 1.92,
-        diabetes: 1.78,
-      },
+  },
+  male: {
+    so10: 0.88936,
+    coefficient: {
+      lnAge: 3.06117,
+      lnCholTotal: 1.1237,
+      lnCholHDL: -0.93263,
+      lnSBPUntreated: 1.93303,
+      lnSBPTreated: 1.99881,
+      smoking: 0.65451,
+      diabetes: 0.57367,
+    },
+    hazardRatio: {
+      lnAge: 21.35,
+      lnCholTotal: 3.08,
+      lnCholHDL: 0.39,
+      lnSBPUntreated: 6.91,
+      lnSBPTreated: 7.38,
+      smoking: 1.92,
+      diabetes: 1.78,
     },
   },
 }

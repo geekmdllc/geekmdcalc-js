@@ -130,45 +130,44 @@ const testCases = [
 
 const mapToDataPlusFraminghamResult = (td) => {
   const ascvdData: ASCVDData = {
-    type: td[0],
-    bioData: {
-      age: td[1],
-      isDiabetic: td[2],
-      isGeneticMale: td[3],
-      isBlack: td[4],
-      isSmoker: td[5],
-      isOnBloodPressureMeds: td[6],
-      cholesterolTotal: td[7],
-      cholesterolHDL: td[8],
-      systolicBloodPressure: td[9],
-    },
+    age: td[1],
+    isDiabetic: td[2],
+    isGeneticMale: td[3],
+    isBlack: td[4],
+    isSmoker: td[5],
+    isOnBloodPressureMeds: td[6],
+    cholesterolTotal: td[7],
+    cholesterolHDL: td[8],
+    systolicBloodPressure: td[9],
   }
-  return { ascvdData, tenYearRisk: td[10], averageTenYearRisk: td[11] }
+  return {
+    type: td[0],
+    ascvdData,
+    tenYearRisk: td[10],
+    averageTenYearRisk: td[11],
+  }
 }
 
 const mapToDataPlusPooledCohort2013Result = (td) => {
   const ascvdData: ASCVDData = {
-    type: td[0],
-    bioData: {
-      age: td[1],
-      isDiabetic: td[2],
-      isGeneticMale: td[3],
-      isBlack: td[4],
-      isSmoker: td[5],
-      isOnBloodPressureMeds: td[6],
-      cholesterolTotal: td[7],
-      cholesterolHDL: td[8],
-      systolicBloodPressure: td[9],
-    },
+    age: td[1],
+    isDiabetic: td[2],
+    isGeneticMale: td[3],
+    isBlack: td[4],
+    isSmoker: td[5],
+    isOnBloodPressureMeds: td[6],
+    cholesterolTotal: td[7],
+    cholesterolHDL: td[8],
+    systolicBloodPressure: td[9],
   }
-  return { ascvdData, tenYearRisk: td[10], lifetimeRisk: td[11] }
+  return { type: td[0], ascvdData, tenYearRisk: td[10], lifetimeRisk: td[11] }
 }
 
 describe('ascvd test', () => {
   it('calculates the 10 year risk for the Framingham percent risk of an ASCVD event correctly', () => {
     testCases
       .map((c) => mapToDataPlusFraminghamResult(c))
-      .filter(({ ascvdData: { type } } = c) => type === 'framingham')
+      .filter(({ type } = c) => type === 'framingham')
       .forEach(({ ascvdData, tenYearRisk: expected } = c) => {
         const actual = framingham(ascvdData).tenYearRisk
         expect(actual).toEqual(expected)
@@ -178,7 +177,7 @@ describe('ascvd test', () => {
   it('calculates the average 10 year risk for the Framingham percent risk of an ASCVD event correctly', () => {
     testCases
       .map((c) => mapToDataPlusFraminghamResult(c))
-      .filter(({ ascvdData: { type } } = c) => type === 'framingham')
+      .filter(({ type } = c) => type === 'framingham')
       .forEach(({ ascvdData, averageTenYearRisk: expected } = c) => {
         const actual = framingham(ascvdData).averageTenYearRisk
         expect(actual).toEqual(expected)
@@ -188,7 +187,7 @@ describe('ascvd test', () => {
   it('calculates the 10 year risk for the Pooled Cohort Equation (2013) percent risk of an ASCVD event correctly', () => {
     testCases
       .map((c) => mapToDataPlusPooledCohort2013Result(c))
-      .filter(({ ascvdData: { type } } = c) => type === 'pooled13')
+      .filter(({ type } = c) => type === 'pooled13')
       .forEach(({ ascvdData, tenYearRisk: expected } = c) => {
         const actual = pooledCohort2013(ascvdData).tenYearRisk
         expect(actual).toEqual(expected)
@@ -198,7 +197,7 @@ describe('ascvd test', () => {
   it('calculates the lifetime risk for the Pooled Cohort Equation (2013) percent risk of an ASCVD event correctly', () => {
     testCases
       .map((c) => mapToDataPlusPooledCohort2013Result(c))
-      .filter(({ ascvdData: { type } } = c) => type === 'pooled13')
+      .filter(({ type } = c) => type === 'pooled13')
       .forEach(({ ascvdData, lifetimeRisk: expected } = c) => {
         const actual = pooledCohort2013(ascvdData).lifetimeRisk
         expect(actual).toEqual(expected)
