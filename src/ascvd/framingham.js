@@ -1,9 +1,13 @@
 // @flow
 
-import type { ASCVDData } from '../types/ASCVDData'
+import type { ASCVDData, FraminghamResult } from '../types/ASCVDData'
 
-const framingham = (data: ASCVDData): number => {
-  return -1
+const framingham = (data: ASCVDData): FraminghamResult => {
+  const badResult: FraminghamResult = {
+    tenYearRisk: -1,
+    averageTenYearRisk: -1,
+  }
+  return badResult
 }
 
 export { framingham }

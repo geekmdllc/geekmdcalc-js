@@ -11,3 +11,13 @@ export type ASCVDData = {
   cholesterolHDL: number,
   systolicBloodPressure: number,
 }
+
+export type PooledCohort2013Result = {
+  tenYearRisk: number,
+  lifetimeRisk: number,
+}
+
+export type FraminghamResult = {
+  tenYearRisk: number,
+  averageTenYearRisk: number,
+}
