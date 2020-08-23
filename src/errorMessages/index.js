@@ -1,6 +1,9 @@
 // @flow
 
 const ErrorMessages = {
+  generic: {
+    unexpected: 'An unexpected error has occured.',
+  },
   ascvd: {
     generic: {
       methodNotImplemented: (method: string) =>
