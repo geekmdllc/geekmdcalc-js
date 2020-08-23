@@ -33,7 +33,6 @@
     "rollup": "^2.26.4"
   },
   "devDependencies": {
-    "flow-typed": "^3.2.1",
     "jest": "^26.4.1"
   }
 }
