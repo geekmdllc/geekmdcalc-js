@@ -21,7 +21,9 @@
     "url": "https://github.com/geekmdllc/geekmdcalc-js/issues"
   },
   "homepage": "https://github.com/geekmdllc/geekmdcalc-js#readme",
-  "dependencies": {},
+  "dependencies": {
+    "@rollup/plugin-node-resolve": "^9.0.0"
+  },
   "devDependencies": {
     "@babel/cli": "^7.10.5",
     "@babel/core": "^7.11.4",
