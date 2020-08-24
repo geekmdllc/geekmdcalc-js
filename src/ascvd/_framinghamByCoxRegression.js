@@ -6,12 +6,16 @@ import {
   regressionData,
   averageRisk as avgRisk,
 } from './_framinghamData'
+import ErrorMessages from '../errorMessages'
 
-// https://www.ahajournals.org/doi/10.1161/circulationaha.107.699579
 // NOTE: Log is 'ln', not base-10
+// https://www.ahajournals.org/doi/10.1161/circulationaha.107.699579
+// Implementation of the Cox regression
+// https://www.merckmanuals.com/medical-calculators/Framingham08.htm
 
 export const framinghamByCoxRegression = (
-  data: ASCVDData
+  data: ASCVDData,
+  avgRiskValue: string = 'constant'
 ): FraminghamResult => {
   const { coefficient: cd } = data.isGeneticMale
     ? regressionData.male
@@ -30,11 +34,11 @@ export const framinghamByCoxRegression = (
     smokingValue(data) +
     diabetesValue(data)
 
-  const sumBXbar = averageRisk(data)
+  const sumBXbar = getAverageRisk(data, avgRiskValue)
 
   const framinghamResult: FraminghamResult = {
     tenYearRisk: 100 * (1 - Math.pow(so10, Math.exp(sumBX - sumBXbar))),
-    averageTenYearRisk: -1,
+    heartAge: -1,
   }
 
   return framinghamResult
@@ -96,44 +100,49 @@ const diabetesValue = (data: ASCVDData): number => {
   return x * b
 }
 
-const averageRisk = (data: ASCVDData): number =>
+const getAverageRisk = (data: ASCVDData, averageRiskMethod: string): number => {
+  switch (averageRiskMethod.toLowerCase()) {
+    case 'constant':
+      return getStaticAverageRisk(data)
+    case 'calculated':
+      return calculateAverageRisk(data)
+    default:
+      throw new Error(ErrorMessages.generic.unexpected)
+  }
+}
+
+const getStaticAverageRisk = (data: ASCVDData): number =>
   data.isGeneticMale ? avgRisk.male : avgRisk.female
 
-// This is not resulting correctly.
-// For case #1, getting: 26.284 and expecting 26.1931
-// For case #2, getting 24.0607 and expecting 23.9802
-// const sumBXbar =
-//   Math.log(md.age) * cd.lnAge +
-//   Math.log(md.cholTotal) * cd.lnCholTotal +
-//   Math.log(md.cholHDL) * cd.lnCholHDL +
-//   Math.log(md.SBP) * (md.BPTreatedPercent / 100) * cd.lnSBPTreated +
-//   Math.log(md.SBP) * (1 - md.BPTreatedPercent / 100) * cd.lnSBPUntreated +
-//   (md.smokingPercent / 100) * cd.smoking +
-//   (md.diabetesPercent / 100) * cd.diabetes
+const calculateAverageRisk = (data: ASCVDData): number => {
+  const { coefficient: cd } = data.isGeneticMale
+    ? regressionData.male
+    : regressionData.female
 
-// const B_age = cd.lnAge
-// const Xbar_age = Math.log(md.age)
-// const B_tc = cd.lnCholTotal
-// const Xbar_tc = Math.log(md.cholTotal)
-// const B_hdl = cd.lnCholHDL
-// const Xbar_hdl = Math.log(md.cholHDL)
-// const B_bp_treated = cd.lnSBPTreated
-// const Xbar_bp_treated = Math.log(md.SBP) * (md.BPTreatedPercent / 100)
-// const B_bp_untreated = cd.lnSBPUntreated
-// const Xbar_bp_untreated = Math.log(md.SBP) * (1 - md.BPTreatedPercent / 100)
-// // These are okay
-// const B_smoking = cd.smoking
-// const smokingPercent = md.smokingPercent / 100
-// const B_diabetes = cd.diabetes
-// const diabetesPercent = md.diabetesPercent / 100
+  const md = data.isGeneticMale ? meanData.male : meanData.female
 
-// const equation = `${B_age}*${Xbar_age} + ${B_tc}*${Xbar_tc} + ${B_hdl}*${Xbar_hdl} + ${B_bp_treated}*${Xbar_bp_treated} + ${B_bp_untreated}*${Xbar_bp_untreated} + ${B_smoking}*${smokingPercent} + ${B_diabetes}*${diabetesPercent}`
+  const B_age = cd.lnAge
+  const Xbar_age = Math.log(md.age)
+  const B_tc = cd.lnCholTotal
+  const Xbar_tc = Math.log(md.cholTotal)
+  const B_hdl = cd.lnCholHDL
+  const Xbar_hdl = Math.log(md.cholHDL)
+  const B_bp_treated = cd.lnSBPTreated
+  const Xbar_bp_treated = Math.log(md.SBP) * (md.BPTreatedPercent / 100)
+  const B_bp_untreated = cd.lnSBPUntreated
+  const Xbar_bp_untreated = Math.log(md.SBP) * (1 - md.BPTreatedPercent / 100)
+  const B_smoking = cd.smoking
+  const smokingPercent = md.smokingPercent / 100
+  const B_diabetes = cd.diabetes
+  const diabetesPercent = md.diabetesPercent / 100
 
-// const sumBXbar =
-//   B_age * Xbar_age +
-//   B_tc * Xbar_tc +
-//   B_hdl * Xbar_hdl +
-//   B_bp_treated * Xbar_bp_treated +
-//   B_bp_untreated * Xbar_bp_untreated +
-//   B_smoking * smokingPercent +
-//   B_diabetes * diabetesPercent
+  const sumBXbar =
+    B_age * Xbar_age +
+    B_tc * Xbar_tc +
+    B_hdl * Xbar_hdl +
+    B_bp_treated * Xbar_bp_treated +
+    B_bp_untreated * Xbar_bp_untreated +
+    B_smoking * smokingPercent +
+    B_diabetes * diabetesPercent
+  return sumBXbar
+}
