@@ -369,7 +369,8 @@ const getResult = (data: ASCVDData): FraminghamResult => {
 const getResultFemale = (points: number): FraminghamResult => {
   const result: FraminghamResult = {
     tenYearRisk: percentRiskFemale(points),
-    heartAge: -1, //avgPercentRiskFemale(points),
+    averageTenYearRisk: -1,
+    heartAge: -1,
   }
 
   return result
@@ -378,7 +379,8 @@ const getResultFemale = (points: number): FraminghamResult => {
 const getResultMale = (points: number): FraminghamResult => {
   const result: FraminghamResult = {
     tenYearRisk: percentRiskMale(points),
-    heartAge: -1, // avgPercentRiskMale(points),
+    averageTenYearRisk: -1,
+    heartAge: -1,
   }
 
   return result
