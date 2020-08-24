@@ -166,6 +166,25 @@ const mapToDataPlusPooledCohort2013Result = (td) => {
 }
 
 describe('ascvd test', () => {
+  it("approximates the appropriate 10 year risk by points for 'case 1' from the Framingham Study", () => {
+    const ascvdData: ASCVDData = {
+      age: 61,
+      isDiabetic: false,
+      isGeneticMale: false,
+      isBlack: false,
+      isSmoker: true,
+      isOnBloodPressureMeds: false,
+      cholesterolTotal: 180,
+      cholesterolHDL: 47,
+      systolicBloodPressure: 124,
+    }
+    const actual = framingham(ascvdData).tenYearRisk
+    const expected = 10.0
+
+    expect(actual).toBeLessThan(expected + resultVariance)
+    expect(actual).toBeGreaterThan(expected - resultVariance)
+  })
+
   it("approximates the appropriate 10 year risk by points for 'case 2' from the Framingham Study", () => {
     const ascvdData: ASCVDData = {
       age: 53,

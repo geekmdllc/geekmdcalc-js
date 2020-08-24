@@ -254,7 +254,6 @@ const pointTotal = (data: ASCVDData): number => {
 }
 
 const percentRiskFemale = (points: number): number => {
-  debugger
   const pts = points
   if (pts <= -2) {
     return 0.9 // This is a placeholder for the '<1%' result.
