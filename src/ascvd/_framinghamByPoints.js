@@ -10,10 +10,8 @@ const {
 
 // https://www.ahajournals.org/doi/10.1161/circulationaha.107.699579
 
-// Points	Age, y	HDL	Total Cholesterol	SBP Not Treated	SBP Treated	Smoker	Diabetic
-
 export const framinghamByPoints = (data: ASCVDData): FraminghamResult => {
-  throw new Error('Not implemented.')
+  return getResult(data)
 }
 
 const agePoints = (data: ASCVDData): number => {
@@ -254,40 +252,38 @@ const pointTotal = (data: ASCVDData): number => {
   )
 }
 
-const percentRiskFemale = (data: ASCVDData): number => {
+const percentRiskFemale = (points: number): number => {
   throw new Error('Not implemented')
 }
-const percentRiskMale = (data: ASCVDData): number => {
-  throw new Error('Not implemented')
-}
-
-const avgPercentRiskFemale = (data: ASCVDData): number => {
-  throw new Error('Not implemented')
-}
-const avgPercentRiskMale = (data: ASCVDData): number => {
+const percentRiskMale = (points: number): number => {
   throw new Error('Not implemented')
 }
 
-const getResult = (data: ASCVDData, points: number): FraminghamResult => {
+const avgPercentRiskFemale = (points: number): number => {
+  throw new Error('Not implemented')
+}
+const avgPercentRiskMale = (points: number): number => {
+  throw new Error('Not implemented')
+}
+
+const getResult = (data: ASCVDData): FraminghamResult => {
   const pts = pointTotal(data)
-  return data.isGeneticMale
-    ? getResultMale(data, pts)
-    : getResultFemale(data, pts)
+  return data.isGeneticMale ? getResultMale(pts) : getResultFemale(pts)
 }
 
-const getResultFemale = (data: ASCVDData, points: number): FraminghamResult => {
+const getResultFemale = (points: number): FraminghamResult => {
   const result: FraminghamResult = {
-    tenYearRisk: percentRiskFemale(data),
-    averageTenYearRisk: avgPercentRiskFemale(data),
+    tenYearRisk: percentRiskFemale(points),
+    averageTenYearRisk: avgPercentRiskFemale(points),
   }
 
   return result
 }
 
-const getResultMale = (data: ASCVDData, points: number): FraminghamResult => {
+const getResultMale = (points: number): FraminghamResult => {
   const result: FraminghamResult = {
-    tenYearRisk: percentRiskMale(data),
-    averageTenYearRisk: avgPercentRiskMale(data),
+    tenYearRisk: percentRiskMale(points),
+    averageTenYearRisk: avgPercentRiskMale(points),
   }
 
   return result
