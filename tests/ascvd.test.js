@@ -3,7 +3,7 @@ import { framingham, pooledCohort2013 } from '../src/ascvd/'
 import type { ASCVDData } from './../src/types/ASCVDData'
 
 const testCases = [
-  // Framingham ASCVD
+  // Framingham ASCVD by Points
   // [type, age, isDiabetic, isGeneticMale, isBlack, isOnBloodPressureMeds, isSmoker, cholesterolTotal, cholesterolHDL, systolicBloodPressure, tenYearRisk, averageTenYearRisk]
   //----type----age---dm----male--black--meds--smoke--cho-hdl--bp--10y--avg
   // Female
@@ -178,7 +178,7 @@ const mapToDataPlusPooledCohort2013Result = (td) => {
 }
 
 describe('ascvd test', () => {
-  it("approximates the appropriate 10 year risk by points for 'case 1' from the Framingham Study", () => {
+  it("approximates the 10 year risk by points for 'case 1' from the Framingham Study", () => {
     const ascvdData: ASCVDData = {
       age: 61,
       isDiabetic: false,
@@ -197,7 +197,7 @@ describe('ascvd test', () => {
     expect(actual).toBeGreaterThan(expected - resultVariance)
   })
 
-  it("approximates the appropriate 10 year risk by points for 'case 2' from the Framingham Study", () => {
+  it("approximates the 10 year risk by points for 'case 2' from the Framingham Study", () => {
     const ascvdData: ASCVDData = {
       age: 53,
       isDiabetic: true,
@@ -227,17 +227,6 @@ describe('ascvd test', () => {
       })
   })
 
-  it('calculates the average 10 year risk for the Framingham percent risk by points of an ASCVD event correctly', () => {
-    testCases
-      .map((c) => mapToDataPlusFraminghamResult(c))
-      .filter(({ type } = c) => type === 'framingham')
-      .forEach(({ ascvdData, averageTenYearRisk: expected } = c) => {
-        const actual = framingham(ascvdData).averageTenYearRisk
-        expect(actual).toBeLessThan(expected + resultVariance)
-        expect(actual).toBeGreaterThan(expected - resultVariance)
-      })
-  })
-
   it("approximates the appropriate 10 year risk by regression analysis for 'case 1' from the Framingham Study", () => {
     const ascvdData: ASCVDData = {
       age: 61,
@@ -250,7 +239,10 @@ describe('ascvd test', () => {
       cholesterolHDL: 47,
       systolicBloodPressure: 124,
     }
-    const actual = framingham(ascvdData, 'regression').tenYearRisk
+    const actual = framingham(ascvdData, {
+      calculationMethod: 'regression',
+      avgRiskMethod: 'constant',
+    }).tenYearRisk
     const expected = 10.48
 
     expect(actual).toBeLessThan(expected + resultVariance)
@@ -269,33 +261,23 @@ describe('ascvd test', () => {
       cholesterolHDL: 55,
       systolicBloodPressure: 125,
     }
-    const actual = framingham(ascvdData, 'regression').tenYearRisk
+    const actual = framingham(ascvdData, {
+      calculationMethod: 'regression',
+      avgRiskMethod: 'constant',
+    }).tenYearRisk
     const expected = 15.62
 
     expect(actual).toBeLessThan(expected + resultVariance)
     expect(actual).toBeGreaterThan(expected - resultVariance)
   })
 
-  it('calculates the 10 year risk for the Framingham percent risk by cox regression analysis of an ASCVD event correctly', () => {
-    testCases
-      .map((c) => mapToDataPlusFraminghamResult(c))
-      .filter(({ type } = c) => type === 'framingham')
-      .forEach(({ ascvdData, tenYearRisk: expected } = c) => {
-        const actual = framingham(ascvdData, 'regression').tenYearRisk
-        expect(actual).toBeLessThan(expected + resultVariance)
-        expect(actual).toBeGreaterThan(expected - resultVariance)
-      })
+  // Test cases not yet implemented
+  it('calculates the average 10 year risk for the Framingham percent risk by points of an ASCVD event correctly', () => {
+    expect(true).toEqual(false)
   })
 
-  it('calculates the average 10 year risk for the Framingham percent risk by cox regression analysis of an ASCVD event correctly', () => {
-    testCases
-      .map((c) => mapToDataPlusFraminghamResult(c))
-      .filter(({ type } = c) => type === 'framingham')
-      .forEach(({ ascvdData, averageTenYearRisk: expected } = c) => {
-        const actual = framingham(ascvdData, 'regression').averageTenYearRisk
-        expect(actual).toBeLessThan(expected + resultVariance)
-        expect(actual).toBeGreaterThan(expected - resultVariance)
-      })
+  it('calculates the heart age of a person appropriate using the Framingham Equation', () => {
+    expect(true).toEqual(false)
   })
 
   it('calculates the 10 year risk for the Pooled Cohort Equation (2013) percent risk of an ASCVD event correctly', () => {

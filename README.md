@@ -23,6 +23,64 @@ There are two major reasons.
 
 This package can be downloaded and built, and eventually will be published to `npm`.
 
+### Atherosclerotic Cardiovascular Disease (ASCVD) Equations
+
+#### [Framingham (2008)](https://www.ahajournals.org/doi/10.1161/circulationaha.107.699579#FD1)
+
+This is a significant cardiovascular disease risk equation in clinical medicine. It's been used extensively to risk-stratify patients, and widely adopted and modified. Please see the attached study for information on the version implemented here.
+
+Method signature
+
+```js
+const framingham = (data, options)
+```
+
+`data`
+
+```js
+type ASCVDData = {
+  age: number,
+  isDiabetic: boolean,
+  isGeneticMale: boolean,
+  isBlack: boolean,
+  isOnBloodPressureMeds: boolean,
+  isSmoker: boolean,
+  cholesterolTotal: number, // mg/dL
+  cholesterolHDL: number, // mg/dL
+  systolicBloodPressure: number, // mmHg
+}
+```
+
+\* **NOTE**: While the function `framingham` shares the `type` of `ASCVDData` with `pooledCohort2013`, race is not considered in this equation so the `isBlack` boolean parameter will have no effect on the output.
+
+`options`
+
+```js
+type ASCVDOptions = {
+  calculationMethod: string,
+  avgRiskMethod: string,
+}
+```
+
+- `calculationMethod`: points | regression\*
+- `avgRiskMethod`: constant | calculated\*
+
+\* **CAUTION**: `calculationMethod` regression and `avgRiskMethod` calculated are experimental. They have not yet been tested extensively.
+
+`return`
+
+```js
+type FraminghamResult = {
+  tenYearRisk: number,
+  averageTenYearRisk: number,
+  heartAge: number,
+}
+```
+
+#### Pooled Cohort Equation (2013)
+
+NOT IMPLEMENTED
+
 ### Download and Build
 
 Ensure you have `git` and `npm` or `yarn` installed.
