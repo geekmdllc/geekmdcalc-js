@@ -41,12 +41,12 @@ This part is easy. Everyone is invited to contribute!
 1. If you see an issue that you feel you can address, feel free to fork and get to work.
 2. If you have a feature request, bug fix, or other issue, feel free to add it to the issues board. And, you can also takle the problem yourself.
 
-## Documentation
+### Documentation
 
 - Self-documenting code is best. If your code is clean, people should be able to figure it out by the file names and methods.
 - If you feel a particular piece of code is complex, then feel free to add additional commentary.
 
-## Coding Conventions
+### Coding Conventions
 
 - Use standard JavaScript file, function, variable, etc. naming conventions.
 - Where appropriate, use `flow` for type-checking. The `flow-bin` library is listed as a development dependency.
