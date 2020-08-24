@@ -36,4 +36,44 @@ NOTE: This packages is not yet depoyed to NPM
 
 ## How Can I Contribute?
 
-`TODO`
+This part is easy. Everyone is invited to contribute!
+
+1. If you see an issue that you feel you can address, feel free to fork and get to work.
+2. If you have a feature request, bug fix, or other issue, feel free to add it to the issues board. And, you can also takle the problem yourself.
+
+## Documentation
+
+- Self-documenting code is best. If your code is clean, people should be able to figure it out by the file names and methods.
+- If you feel a particular piece of code is complex, then feel free to add additional commentary.
+
+## Coding Conventions
+
+- Use standard JavaScript file, function, variable, etc. naming conventions.
+- Where appropriate, use `flow` for type-checking. The `flow-bin` library is listed as a development dependency.
+- Test! While we make no guarantees with this open source product and while everybody should test it themselves before they put it into product as they assume responsibilty for the product, your logic for medical calculations should be evidence-based and have an adequate number of test cases to ensure you've covered every reasonable case.
+
+### Naming branches
+
+Branches should follow the following naming convention:
+
+1. Bug Fixes: `bugfix-[issue#]<-[optional description]>`.
+   - Example: A bug fix for calculating an age wrong.
+   - `bugfix-23-display-age`
+2. Feature Request: `feature-[issue#]<-[optional description]>`.
+   - Example: Add FIB-4 calculation.
+   - `feature-12-fib4`
+3. Other Issues: `issue-[issue#]<-[optional desription]>`.
+   - Example: Improve documentation.
+   - `issue-89-improve-docs`
+
+### Commit Messages
+
+General template: "`<[skip ci]> [#issue] - Message content goes here`"
+
+- Commit's the `master` and `development` will be tested with [Travis CI](https://travis-ci.org) continuous integration system. If you feel that the commit does not need to be tested, then prepend `[skip ci]` to the commit message.
+- All Commit messages should include `#issue` in the message so that the issue and project boards can track properly.
+- Message content should be descriptive, but brief.
+
+### Pull Requests
+
+Always make pull requests for `development` and NOT `master`.
