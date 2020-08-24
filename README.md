@@ -4,7 +4,7 @@ Travis Nesbit, MD (geekmdtravis) | GeekMD, LLC
 
 ## Build Status
 
-| Master                                                                                                                            | Development                                                                                                                            |
+| Main                                                                                                                              | Development                                                                                                                            |
 | --------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
 | [![Build Status](https://travis-ci.org/geekmdllc/geekmdcalc-js.svg?branch=master)](https://travis-ci.org/geekmdllc/geekmdcalc-js) | [![Build Status](https://travis-ci.org/geekmdllc/geekmdcalc-js.svg?branch=development)](https://travis-ci.org/geekmdllc/geekmdcalc-js) |
 
