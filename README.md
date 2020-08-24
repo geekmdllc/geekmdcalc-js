@@ -15,7 +15,18 @@ There are two major reasons.
 
 ## Usage
 
-`TODO`
+This package can be downloaded and built, and eventually will be published to `npm`.
+
+### Download and Build
+
+Ensure you have `git` and `npm` or `yarn` installed.
+
+1. Clone the repo using the GitHub&reg; link above.
+2. Run `yarn build` or `npm run build` to have the ES6 content transpiled to CommomJS in the `build` folder.
+
+### Download from NPM&reg;
+
+NOTE: This packages is not yet depoyed to NPM
 
 ## How Can I Contribute?
 
