@@ -7,37 +7,49 @@ const testCases = [
   // [type, age, isDiabetic, isGeneticMale, isBlack, isOnBloodPressureMeds, isSmoker, cholesterolTotal, cholesterolHDL, systolicBloodPressure, tenYearRisk, averageTenYearRisk]
   //----type----age---dm----male--black--meds--smoke--cho-hdl--bp--10y--avg
   // Female
-  ['framingham', 39, false, false, false, false, false, 140, 30, 150, 0.2, 0.9],
-  ['framingham', 40, false, false, false, false, false, 140, 30, 150, 0.3, 0.9],
-  ['framingham', 41, false, false, false, false, false, 140, 30, 150, 0.3, 0.9],
+  ['framingham', 39, false, false, false, false, false, 140, 30, 150, 4.5, 0],
+  ['framingham', 49, false, false, false, false, false, 140, 30, 150, 7.3, 0],
+  ['framingham', 59, false, false, false, false, false, 140, 30, 150, 11.7, 0],
   // Female: meds
-  ['framingham', 39, false, false, false, true, false, 140, 30, 150, 0.2, 0.9],
-  ['framingham', 40, false, false, false, true, false, 140, 30, 150, 0.3, 1],
-  ['framingham', 41, false, false, false, true, false, 140, 30, 150, 0.3, 1],
+  ['framingham', 39, false, false, false, true, false, 140, 30, 150, 6.3, 0],
+  ['framingham', 49, false, false, false, true, false, 140, 30, 150, 10, 0],
+  ['framingham', 59, false, false, false, true, false, 140, 30, 150, 15.9, 0],
   // Female: smoker
-  ['framingham', 39, false, false, false, false, true, 140, 30, 150, 1.3, 0.9],
-  ['framingham', 40, false, false, false, false, true, 140, 30, 150, 1.4, 1],
-  ['framingham', 41, false, false, false, false, true, 140, 30, 150, 1.5, 1],
-  // Female: smoker, meds
-  ['framingham', 39, true, false, true, true, true, 140, 30, 150, 4.9, 4],
-  ['framingham', 40, true, false, true, true, true, 140, 30, 150, 5.5, 4],
-  ['framingham', 41, true, false, true, true, true, 140, 30, 150, 6.1, 4],
+  ['framingham', 39, false, false, false, false, true, 140, 30, 150, 7.3, 0],
+  ['framingham', 49, false, false, false, false, true, 140, 30, 150, 11.7, 0],
+  ['framingham', 59, false, false, false, false, true, 140, 30, 150, 18.5, 0],
+  // Female: meds, smoker
+  ['framingham', 39, false, false, true, true, true, 140, 30, 150, 10, 0],
+  ['framingham', 49, false, false, true, true, true, 140, 30, 150, 15.9, 0],
+  ['framingham', 59, false, false, true, true, true, 140, 30, 150, 24.8, 0],
+  // Female: diabetic, meds, smoker
+  ['framingham', 39, true, false, true, true, true, 140, 30, 150, 18.5, 0],
+  ['framingham', 49, true, false, true, true, true, 140, 30, 150, 28.5, 0],
+  ['framingham', 59, true, false, true, true, true, 140, 30, 150, 30, 0],
   // Male
-  ['framingham', 39, false, true, false, false, false, 140, 30, 150, 0.7, 4],
-  ['framingham', 40, false, true, false, false, false, 140, 30, 150, 0.9, 4],
-  ['framingham', 41, false, true, false, false, false, 140, 30, 150, 1.1, 4],
+  ['framingham', 39, false, true, false, false, false, 140, 30, 150, 4.7, 0],
+  ['framingham', 49, false, true, false, false, false, 140, 30, 150, 9.4, 0],
+  ['framingham', 59, false, true, false, false, false, 140, 30, 150, 18.4, 0],
   // Male: meds
-  ['framingham', 39, true, true, false, true, false, 140, 30, 150, 0.9, 4],
-  ['framingham', 40, true, true, false, true, false, 140, 30, 150, 1.1, 4],
-  ['framingham', 41, true, true, false, true, false, 140, 30, 150, 1.4, 4],
+  ['framingham', 39, false, true, false, true, false, 140, 30, 150, 6.7, 0],
+  ['framingham', 49, false, true, false, true, false, 140, 30, 150, 13.2, 0],
+  ['framingham', 59, false, true, false, true, false, 140, 30, 150, 25.3, 0],
   // Male: smoker
-  ['framingham', 39, true, true, false, false, true, 140, 30, 150, 3.8, 4],
-  ['framingham', 40, true, true, false, false, true, 140, 30, 150, 4.3, 4],
-  ['framingham', 41, true, true, false, false, true, 140, 30, 150, 4.8, 4],
-  // Male: smoker, meds
-  ['framingham', 39, true, true, true, true, true, 140, 30, 150, 4.9, 4],
-  ['framingham', 40, true, true, true, true, true, 140, 30, 150, 5.5, 4],
-  ['framingham', 41, true, true, true, true, true, 140, 30, 150, 6.1, 4],
+  ['framingham', 39, false, true, false, false, true, 140, 30, 150, 9.4, 0],
+  ['framingham', 49, false, true, false, false, true, 140, 30, 150, 18.4, 0],
+  ['framingham', 59, false, true, false, false, true, 140, 30, 150, 30, 0],
+  // Male: diabetic, meds
+  ['framingham', 39, true, true, false, true, false, 140, 30, 150, 11.2, 0],
+  ['framingham', 49, true, true, false, true, false, 140, 30, 150, 21.6, 0],
+  ['framingham', 59, true, true, false, true, false, 140, 30, 150, 30, 0],
+  // Male: diabetic, smoker
+  ['framingham', 39, true, true, false, false, true, 140, 30, 150, 15.6, 0],
+  ['framingham', 49, true, true, false, false, true, 140, 30, 150, 29.4, 0],
+  ['framingham', 59, true, true, false, false, true, 140, 30, 150, 30, 0],
+  // Male: diabetic, meds, smoker
+  ['framingham', 39, true, true, true, true, true, 140, 30, 150, 21.6, 0],
+  ['framingham', 49, true, true, true, true, true, 140, 30, 150, 30, 0],
+  ['framingham', 59, true, true, true, true, true, 140, 30, 150, 30, 0],
   // Pooled Cohort 2013 ASCVD
   // [type, age, isDiabetic, isGeneticMale, isBlack, isOnBloodPressureMeds, isSmoker, cholesterolTotal, cholesterolHDL, systolicBloodPressure, tenYearRisk, lifetimeRisk]
   //----type----age---dm----male--black--meds--smoke--cho-hdl--bp--10y--avg
@@ -136,8 +148,8 @@ const mapToDataPlusFraminghamResult = (td) => {
     isDiabetic: td[2],
     isGeneticMale: td[3],
     isBlack: td[4],
-    isSmoker: td[5],
-    isOnBloodPressureMeds: td[6],
+    isOnBloodPressureMeds: td[5],
+    isSmoker: td[6],
     cholesterolTotal: td[7],
     cholesterolHDL: td[8],
     systolicBloodPressure: td[9],
@@ -156,8 +168,8 @@ const mapToDataPlusPooledCohort2013Result = (td) => {
     isDiabetic: td[2],
     isGeneticMale: td[3],
     isBlack: td[4],
-    isSmoker: td[5],
-    isOnBloodPressureMeds: td[6],
+    isOnBloodPressureMeds: td[5],
+    isSmoker: td[6],
     cholesterolTotal: td[7],
     cholesterolHDL: td[8],
     systolicBloodPressure: td[9],
