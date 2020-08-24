@@ -68,7 +68,9 @@ Branches should follow the following naming convention:
 
 ### Commit Messages
 
-General template: "`<[skip ci]> [#issue] - Message content goes here`"
+General template: "`<[skip ci]> [#issue] - Message content goes here`" where content inside of `<` and `>` is optional.
+
+Example: `[skip ci] #103 - Updated 'How can I help?' section of the README.md`
 
 - Commit's the `master` and `development` will be tested with [Travis CI](https://travis-ci.org) continuous integration system. If you feel that the commit does not need to be tested, then prepend `[skip ci]` to the commit message.
 - All Commit messages should include `#issue` in the message so that the issue and project boards can track properly.
