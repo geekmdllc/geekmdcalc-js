@@ -31,23 +31,13 @@ export const framinghamByCoxRegression = (
     Math.log(md.age) * cd.lnAge +
     Math.log(md.cholTotal) * cd.lnCholTotal +
     Math.log(md.cholHDL) * cd.lnCholHDL +
-    Math.log(md.SBP) *
-      (data.isOnBloodPressureMeds ? cd.lnSBPTreated : cd.lnSBPUntreated) +
-    (md.BPTreatedPercent / 100) * cd.lnSBPTreated +
+    Math.log(md.SBP) * (md.BPTreatedPercent / 100) * cd.lnSBPTreated +
+    Math.log(md.SBP) * (1 - md.BPTreatedPercent / 100) * cd.lnSBPUntreated +
     (md.smokingPercent / 100) * cd.smoking +
     (md.diabetesPercent / 100) * cd.diabetes
 
-  const lnMeanAge = Math.log(md.age)
-  const lnMeanCholTot = Math.log(md.cholTotal)
-  const lnMeanCholHdl = Math.log(md.cholHDL)
-  const lnMeanSbp = Math.log(md.SBP)
-  const meanBPTreated = md.BPTreatedPercent / 100
-  const meanSmoking = md.smokingPercent / 100
-  const meanDiabetes = md.diabetesPercent / 100
-
-  const result = 1 - Math.pow(so10, sumBX - sumBXbar)
   const framinghamResult: FraminghamResult = {
-    tenYearRisk: result * 100,
+    tenYearRisk: Math.pow(so10, sumBX - sumBXbar) * 100,
     averageTenYearRisk: -1,
   }
   return framinghamResult

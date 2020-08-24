@@ -16,7 +16,7 @@ const meanData = {
     cholTotal: 212.5,
     cholHDL: 44.9,
     SBP: 129.7,
-    BPTreatedPercent: 10.3,
+    BPTreatedPercent: 10.13,
     smokingPercent: 35.22,
     diabetesPercent: 6.5,
     CVDIncidentPercent: 18.09,
