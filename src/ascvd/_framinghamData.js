@@ -1,21 +1,26 @@
 // @flow
 
+const averageRisk = {
+  female: 26.1931,
+  male: 23.9802,
+}
+
 const meanData = {
   female: {
-    age: 49.1,
-    cholTotal: 215.1,
-    cholHDL: 57.6,
-    SBP: 125.8,
+    age: 49.1, // 47.87
+    cholTotal: 215.1, // 210.69
+    cholHDL: 57.6, // 55.57
+    SBP: 125.8, // ?? Doesn't look right. Untreated fraction: 69.40785, Treated fraction: 1.79
     BPTreatedPercent: 11.76,
     smokingPercent: 34.23,
     diabetesPercent: 3.76,
     CVDIncidentPercent: 10.08,
   },
   male: {
-    age: 48.5,
-    cholTotal: 212.5,
-    cholHDL: 44.9,
-    SBP: 129.7,
+    age: 48.5, // 47.2758
+    cholTotal: 212.5, // 208.93
+    cholHDL: 44.9, // 43.3193
+    SBP: 129.7, // ?? Doesn't look right. Untreated fraction: 77.82012, Treated fraction: 1.6519
     BPTreatedPercent: 10.13,
     smokingPercent: 35.22,
     diabetesPercent: 6.5,
@@ -68,4 +73,4 @@ const regressionData = {
   },
 }
 
-export { meanData, regressionData }
+export { meanData, regressionData, averageRisk }
