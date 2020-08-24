@@ -1,5 +1,10 @@
 // @flow
 
+const averageRisk = {
+  female: 26.1931,
+  male: 23.9802,
+}
+
 const meanData = {
   female: {
     age: 49.1,
@@ -16,7 +21,7 @@ const meanData = {
     cholTotal: 212.5,
     cholHDL: 44.9,
     SBP: 129.7,
-    BPTreatedPercent: 10.3,
+    BPTreatedPercent: 10.13,
     smokingPercent: 35.22,
     diabetesPercent: 6.5,
     CVDIncidentPercent: 18.09,
@@ -68,4 +73,4 @@ const regressionData = {
   },
 }
 
-export { meanData, regressionData }
+export { meanData, regressionData, averageRisk }
