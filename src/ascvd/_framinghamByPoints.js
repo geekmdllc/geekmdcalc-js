@@ -254,15 +254,41 @@ const pointTotal = (data: ASCVDData): number => {
   )
 }
 
-const getResult = (data: ASCVDData): FraminghamResult => {
+const percentRiskFemale = (data: ASCVDData): number => {
+  throw new Error('Not implemented')
+}
+const percentRiskMale = (data: ASCVDData): number => {
+  throw new Error('Not implemented')
+}
+
+const avgPercentRiskFemale = (data: ASCVDData): number => {
+  throw new Error('Not implemented')
+}
+const avgPercentRiskMale = (data: ASCVDData): number => {
+  throw new Error('Not implemented')
+}
+
+const getResult = (data: ASCVDData, points: number): FraminghamResult => {
   const pts = pointTotal(data)
-  return data.isGeneticMale ? getResultMale(pts) : getResultFemale(pts)
+  return data.isGeneticMale
+    ? getResultMale(data, pts)
+    : getResultFemale(data, pts)
 }
 
-const getResultMale = (points: number): FraminghamResult => {
-  throw new Error('Not implemented.')
+const getResultFemale = (data: ASCVDData, points: number): FraminghamResult => {
+  const result: FraminghamResult = {
+    tenYearRisk: percentRiskFemale(data),
+    averageTenYearRisk: avgPercentRiskFemale(data),
+  }
+
+  return result
 }
 
-const getResultFemale = (points: number): FraminghamResult => {
-  throw new Error('Not implemented.')
+const getResultMale = (data: ASCVDData, points: number): FraminghamResult => {
+  const result: FraminghamResult = {
+    tenYearRisk: percentRiskMale(data),
+    averageTenYearRisk: avgPercentRiskMale(data),
+  }
+
+  return result
 }
