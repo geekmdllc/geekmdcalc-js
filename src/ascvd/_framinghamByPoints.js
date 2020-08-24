@@ -176,13 +176,13 @@ const sbpUntreatedPointsMale = (data: ASCVDData): number => {
   }
 }
 
-const bpTreatedPoints = (data: ASCVDData): number => {
+const sbpTreatedPoints = (data: ASCVDData): number => {
   return data.isGeneticMale
-    ? bpTreatedPointsMale(data)
-    : bpTreatedPointsFemale(data)
+    ? sbpTreatedPointsMale(data)
+    : sbpTreatedPointsFemale(data)
 }
 
-const bpTreatedPointsFemale = (data: ASCVDData): number => {
+const sbpTreatedPointsFemale = (data: ASCVDData): number => {
   const { systolicBloodPressure: sbp } = data
 
   if (sbp < 120) {
@@ -200,7 +200,7 @@ const bpTreatedPointsFemale = (data: ASCVDData): number => {
   }
 }
 
-const bpTreatedPointsMale = (data: ASCVDData): number => {
+const sbpTreatedPointsMale = (data: ASCVDData): number => {
   const { systolicBloodPressure: sbp } = data
 
   if (sbp < 120) {
@@ -217,11 +217,28 @@ const bpTreatedPointsMale = (data: ASCVDData): number => {
 }
 
 const smokerPoints = (data: ASCVDData): number => {
-  throw new Error('Not implemented.')
+  return data.isGeneticMale ? smokerPointsMale(data) : smokerPointsFemale(data)
+}
+const smokerPointsFemale = (data: ASCVDData): number => {
+  return data.isSmoker ? 3 : 0
+}
+
+const smokerPointsMale = (data: ASCVDData): number => {
+  return data.isSmoker ? 4 : 0
 }
 
 const diabeticPoints = (data: ASCVDData): number => {
-  throw new Error('Not implemented.')
+  return data.isGeneticMale
+    ? diabeticPointsMale(data)
+    : diabeticPointsFemale(data)
+}
+
+const diabeticPointsFemale = (data: ASCVDData): number => {
+  return data.isDiabetic ? 4 : 0
+}
+
+const diabeticPointsMale = (data: ASCVDData): number => {
+  return data.isDiabetic ? 3 : 0
 }
 
 const pointTotal = (data: ASCVDData): number => {
@@ -229,21 +246,17 @@ const pointTotal = (data: ASCVDData): number => {
     agePoints(data) +
     hdlPoints(data) +
     totalCholPoints(data) +
-    sbpUntreatedPoints(data) +
-    bpTreatedPoints(data) +
+    (data.isOnBloodPressureMeds
+      ? sbpTreatedPoints(data)
+      : sbpUntreatedPoints(data)) +
     smokerPoints(data) +
     diabeticPoints(data)
   )
 }
 
-const getResult = (points: number, data: ASCVDData): FraminghamResult => {
-  switch (data.isGeneticMale) {
-    case true:
-      return getResultMale(points)
-    case false:
-      return getResultFemale(points)
-  }
-  throw new Error(ErrorMessages.generic.unexpected)
+const getResult = (data: ASCVDData): FraminghamResult => {
+  const pts = pointTotal(data)
+  return data.isGeneticMale ? getResultMale(pts) : getResultFemale(pts)
 }
 
 const getResultMale = (points: number): FraminghamResult => {
