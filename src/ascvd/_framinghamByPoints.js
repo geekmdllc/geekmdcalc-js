@@ -254,6 +254,7 @@ const pointTotal = (data: ASCVDData): number => {
 }
 
 const percentRiskFemale = (points: number): number => {
+  debugger
   const pts = points
   if (pts <= -2) {
     return 0.9 // This is a placeholder for the '<1%' result.
@@ -307,46 +308,48 @@ const percentRiskFemale = (points: number): number => {
 }
 const percentRiskMale = (points: number): number => {
   const pts = points
-  if (pts <= -2) {
+  if (pts <= -3) {
     return 0.9 // This is a placeholder for the '<1%' result.
-  } else if (pts <= -1) {
+  } else if (pts <= -2) {
     return 1.1
-  } else if (pts <= 0) {
+  } else if (pts <= -1) {
     return 1.4
-  } else if (pts <= 1) {
+  } else if (pts <= 0) {
     return 1.6
-  } else if (pts <= 2) {
+  } else if (pts <= 1) {
     return 1.9
-  } else if (pts <= 3) {
+  } else if (pts <= 2) {
     return 2.3
-  } else if (pts <= 4) {
+  } else if (pts <= 3) {
     return 2.8
-  } else if (pts <= 5) {
+  } else if (pts <= 4) {
     return 3.3
-  } else if (pts <= 6) {
+  } else if (pts <= 5) {
     return 3.9
-  } else if (pts <= 7) {
+  } else if (pts <= 6) {
     return 4.7
-  } else if (pts <= 8) {
+  } else if (pts <= 7) {
     return 5.6
-  } else if (pts <= 9) {
+  } else if (pts <= 8) {
     return 6.7
-  } else if (pts <= 10) {
+  } else if (pts <= 9) {
     return 7.9
-  } else if (pts <= 11) {
+  } else if (pts <= 10) {
     return 9.4
-  } else if (pts <= 12) {
+  } else if (pts <= 11) {
     return 11.2
-  } else if (pts <= 13) {
+  } else if (pts <= 12) {
     return 13.2
-  } else if (pts <= 14) {
+  } else if (pts <= 13) {
     return 15.6
-  } else if (pts <= 15) {
+  } else if (pts <= 14) {
     return 18.4
-  } else if (pts <= 16) {
+  } else if (pts <= 15) {
     return 21.6
-  } else if (pts <= 17) {
+  } else if (pts <= 16) {
     return 25.3
+  } else if (pts <= 17) {
+    return 29.4
   } else {
     return 30 // This is a placeholder for > 30%
   }
@@ -367,7 +370,7 @@ const getResult = (data: ASCVDData): FraminghamResult => {
 const getResultFemale = (points: number): FraminghamResult => {
   const result: FraminghamResult = {
     tenYearRisk: percentRiskFemale(points),
-    averageTenYearRisk: avgPercentRiskFemale(points),
+    averageTenYearRisk: -1, //avgPercentRiskFemale(points),
   }
 
   return result
@@ -376,7 +379,7 @@ const getResultFemale = (points: number): FraminghamResult => {
 const getResultMale = (points: number): FraminghamResult => {
   const result: FraminghamResult = {
     tenYearRisk: percentRiskMale(points),
-    averageTenYearRisk: avgPercentRiskMale(points),
+    averageTenYearRisk: -1, // avgPercentRiskMale(points),
   }
 
   return result

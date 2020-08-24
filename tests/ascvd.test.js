@@ -179,7 +179,7 @@ describe('ascvd test', () => {
       systolicBloodPressure: 125,
     }
     const actual = framingham(ascvdData).tenYearRisk
-    const expected = 10.48
+    const expected = 15.62
 
     expect(actual).toBeLessThan(expected + resultVariance)
     expect(actual).toBeGreaterThan(expected - resultVariance)
@@ -219,7 +219,8 @@ describe('ascvd test', () => {
       cholesterolHDL: 55,
       systolicBloodPressure: 125,
     }
-    const actual = framingham(ascvdData, (method: 'regression')).tenYearRisk
+    const actual = framingham((data: ascvdData), (method: 'regression'))
+      .tenYearRisk
     const expected = 10.48
 
     expect(actual).toBeLessThan(expected + resultVariance)
@@ -231,7 +232,8 @@ describe('ascvd test', () => {
       .map((c) => mapToDataPlusFraminghamResult(c))
       .filter(({ type } = c) => type === 'framingham')
       .forEach(({ ascvdData, tenYearRisk: expected } = c) => {
-        const actual = framingham(ascvdData, (method: 'regression')).tenYearRisk
+        const actual = framingham((data: ascvdData), (method: 'regression'))
+          .tenYearRisk
         expect(actual).toBeLessThan(expected + resultVariance)
         expect(actual).toBeGreaterThan(expected - resultVariance)
       })
@@ -242,7 +244,7 @@ describe('ascvd test', () => {
       .map((c) => mapToDataPlusFraminghamResult(c))
       .filter(({ type } = c) => type === 'framingham')
       .forEach(({ ascvdData, averageTenYearRisk: expected } = c) => {
-        const actual = framingham(ascvdData, (method: 'regression'))
+        const actual = framingham((data: ascvdData), (method: 'regression'))
           .averageTenYearRisk
         expect(actual).toBeLessThan(expected + resultVariance)
         expect(actual).toBeGreaterThan(expected - resultVariance)
