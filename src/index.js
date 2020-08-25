@@ -1,3 +1,3 @@
-import { pooledCohort2013, framingham } from './ascvd/'
+import { homaIR } from './homaIR'
 
-export { pooledCohort2013, framingham }
+export { homaIR }
