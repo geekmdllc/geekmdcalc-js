@@ -1,5 +1,16 @@
 // @flow
 
+const pooledCohort2013MeanData = {
+  female: {
+    white: -29.18,
+    black: 86.61,
+  },
+  male: {
+    white: 61.18,
+    black: 19.54,
+  },
+}
+
 const pooledCohort2013Coefficients = {
   survival: {
     female: {
@@ -73,4 +84,4 @@ const pooledCohort2013Coefficients = {
   },
 }
 
-export { pooledCohort2013Coefficients }
+export { pooledCohort2013MeanData, pooledCohort2013Coefficients }
