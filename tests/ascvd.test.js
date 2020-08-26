@@ -301,4 +301,79 @@ describe('ascvd test', () => {
         expect(actual).toBeGreaterThan(expected - resultVariance)
       })
   })
+
+  it('calculates the 10 year risk for the Pooled Cohort Equation (2013) percent risk of an ASCVD event for a the white woman case in the ACC/AHA paper', () => {
+    const data: ASCVDData = {
+      age: 55,
+      isGeneticMale: false,
+      isBlack: false,
+      cholesterolTotal: 213,
+      cholesterolHDL: 50,
+      systolicBloodPressure: 120,
+      isOnBloodPressureMeds: false,
+      isSmoker: false,
+      isDiabetic: false,
+    }
+
+    const result = pooledCohort2013(data).lifetimeRisk
+    const expected = 2.1
+
+    expect(result).toEqual(expected)
+  })
+
+  it('calculates the 10 year risk for the Pooled Cohort Equation (2013) percent risk of an ASCVD event for a the black woman case in the ACC/AHA paper', () => {
+    const data: ASCVDData = {
+      age: 55,
+      isGeneticMale: false,
+      isBlack: true,
+      cholesterolTotal: 213,
+      cholesterolHDL: 50,
+      systolicBloodPressure: 120,
+      isOnBloodPressureMeds: false,
+      isSmoker: false,
+      isDiabetic: false,
+    }
+    const result = pooledCohort2013(data).lifetimeRisk
+    const expected = 3.0
+
+    expect(result).toEqual(expected)
+  })
+
+  it('calculates the 10 year risk for the Pooled Cohort Equation (2013) percent risk of an ASCVD event for a the white man case in the ACC/AHA paper', () => {
+    const data: ASCVDData = {
+      age: 55,
+      isGeneticMale: true,
+      isBlack: false,
+      cholesterolTotal: 213,
+      cholesterolHDL: 50,
+      systolicBloodPressure: 120,
+      isOnBloodPressureMeds: false,
+      isSmoker: false,
+      isDiabetic: false,
+    }
+
+    const result = pooledCohort2013(data).lifetimeRisk
+    const expected = 5.3
+
+    expect(result).toEqual(expected)
+  })
+
+  it('calculates the 10 year risk for the Pooled Cohort Equation (2013) percent risk of an ASCVD event for a the black man case in the ACC/AHA paper', () => {
+    const data: ASCVDData = {
+      age: 55,
+      isGeneticMale: true,
+      isBlack: true,
+      cholesterolTotal: 213,
+      cholesterolHDL: 50,
+      systolicBloodPressure: 120,
+      isOnBloodPressureMeds: false,
+      isSmoker: false,
+      isDiabetic: false,
+    }
+  })
+
+  const result = pooledCohort2013(data).lifetimeRisk
+  const expected = 6.1
+
+  expect(result).toEqual(expected)
 })
