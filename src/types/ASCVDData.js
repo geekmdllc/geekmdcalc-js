@@ -19,11 +19,11 @@ export type ASCVDOptions = {
 
 export type FraminghamResult = {
   tenYearRisk: number,
-  averageTenYearRisk: number,
-  heartAge: number,
+  // averageTenYearRisk: number,
+  // heartAge: number,
 }
 
 export type PooledCohort2013Result = {
   tenYearRisk: number,
-  lifetimeRisk: number,
+  // lifetimeRisk: number,
 }

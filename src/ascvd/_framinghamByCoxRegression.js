@@ -38,8 +38,8 @@ export const framinghamByCoxRegression = (
 
   const framinghamResult: FraminghamResult = {
     tenYearRisk: 100 * (1 - Math.pow(so10, Math.exp(sumBX - sumBXbar))),
-    averageTenYearRisk: -1,
-    heartAge: -1,
+    // averageTenYearRisk: -1,
+    // heartAge: -1,
   }
 
   return framinghamResult
