@@ -4,9 +4,10 @@ Travis Nesbit, MD (geekmdtravis) | GeekMD, LLC
 
 ## Build Status
 
-| Main                                                                                                                            | Development                                                                                                                            |
-| ------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
-| [![Build Status](https://travis-ci.org/geekmdllc/geekmdcalc-js.svg?branch=main)](https://travis-ci.org/geekmdllc/geekmdcalc-js) | [![Build Status](https://travis-ci.org/geekmdllc/geekmdcalc-js.svg?branch=development)](https://travis-ci.org/geekmdllc/geekmdcalc-js) |
+| Main                                                                                                                              | Development                                                                                                                            |Coverage|
+| --------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |--------|
+| [![Build Status](https://travis-ci.org/geekmdllc/geekmdcalc-js.svg?branch=master)](https://travis-ci.org/geekmdllc/geekmdcalc-js) | [![Build Status](https://travis-ci.org/geekmdllc/geekmdcalc-js.svg?branch=development)](https://travis-ci.org/geekmdllc/geekmdcalc-js) |[![Coverage Status](https://coveralls.io/repos/github/geekmdllc/geekmdcalc-js/badge.svg?branch=main)](https://coveralls.io/github/geekmdllc/geekmdcalc-js?branch=main)|
+
 
 ## Introduction
 
