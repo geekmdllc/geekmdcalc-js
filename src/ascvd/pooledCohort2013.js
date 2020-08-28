@@ -109,7 +109,38 @@ const getFemalePooledCohort2013Result = (
 const getBlackFemalePooledCohort2013Result = (
   data: ASCVDData
 ): PooledCohort2013Result => {
-  throw new Error('Not implemented')
+  const lnAgeProduct = getBlackFemalelnAgeProduct(data)
+  const lnTCholProduct = getBlackFemaleTCholProdct(data)
+  const lnHDLProduct = getBlackFemalelnHDLProduct(data)
+  const lnHDLXAgeProd = getBlackFemalelnAgeXlnHDLProduct(data)
+  const lnSBPProduct = getBlackFemaleSBPProduct(data)
+  const lnAgeXSBPProduct = getBlackFemaleAgeXSBPProduct(data)
+  const smokerProduct = data.isSmoker
+    ? cd.regression.female.black.currentSmoker
+    : 0
+  const diabeticProduct = data.isDiabetic
+    ? cd.regression.female.black.diabetes
+    : 0
+
+  const sumXB =
+    lnAgeProduct +
+    lnTCholProduct +
+    lnHDLProduct +
+    lnHDLXAgeProd +
+    lnSBPProduct +
+    lnAgeXSBPProduct +
+    smokerProduct +
+    diabeticProduct
+
+  const result: PooledCohort2013Result = {
+    tenYearRisk: evaluatePooledCohort2013Equation(
+      cd.survival.female.black,
+      sumXB,
+      md.female.black
+    ),
+  }
+
+  return result
 }
 
 const getWhiteFemalePooledCohort2013Result = (
@@ -126,6 +157,7 @@ const evaluatePooledCohort2013Equation = (
   return 100 * (1 - Math.pow(survival, Math.exp(individualSum - meanDataSum)))
 }
 
+// Black Male
 const getBlackMalelnAgeProduct = (data): number => {
   const lnAge = Math.log(data.age)
   const B = cd.regression.male.black.lnAge
@@ -152,6 +184,7 @@ const getBlackMaleSBPProduct = (data): number => {
   return lnSBP * B
 }
 
+// White Male
 const getWhiteMalelnAgeProduct = (data): number => {
   const lnAge = Math.log(data.age)
   const B = cd.regression.male.white.lnAge
@@ -192,3 +225,50 @@ const getWhiteMaleSBPProduct = (data): number => {
     : cd.regression.male.white.lnUntreatedSystolicBP
   return lnSBP * B
 }
+
+// Black Female
+
+const getBlackFemalelnAgeProduct = (data): number => {
+  const lnAge = Math.log(data.age)
+  const B = cd.regression.female.black.lnAge
+  const lnAgeProduct = lnAge * B
+
+  return lnAgeProduct
+}
+const getBlackFemaleTCholProdct = (data): number => {
+  const lnTChol = Math.log(data.cholesterolTotal)
+  const B = cd.regression.female.black.lnTotalChol
+  return lnTChol * B
+}
+
+const getBlackFemalelnHDLProduct = (data): number => {
+  const lnHDL = Math.log(data.cholesterolHDL)
+  const B = cd.regression.female.black.lnHDLC
+  return lnHDL * B
+}
+
+const getBlackFemalelnAgeXlnHDLProduct = (data): number => {
+  const lnAge = Math.log(data.age)
+  const lnHDL = Math.log(data.cholesterolHDL)
+  const B = cd.regression.female.black.lnAgeXlnHDLC
+  return lnAge * lnHDL * B
+}
+
+const getBlackFemaleSBPProduct = (data): number => {
+  const lnSBP = Math.log(data.systolicBloodPressure)
+  const B = data.isOnBloodPressureMeds
+    ? cd.regression.female.black.lnTreatedSystolicBP
+    : cd.regression.female.black.lnUntreatedSystolicBP
+  return lnSBP * B
+}
+
+const getBlackFemaleAgeXSBPProduct = (data): number => {
+  const lnSBP = Math.log(data.systolicBloodPressure)
+  const lnAge = Math.log(data.age)
+  const B = data.isOnBloodPressureMeds
+    ? cd.regression.female.black.lnAgeXlnTreatedSystolicBP
+    : cd.regression.female.black.lnAgeXlnUntreatedSystolicBP
+  return lnSBP * lnAge * B
+}
+
+// White Female
