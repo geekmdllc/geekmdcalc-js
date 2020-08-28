@@ -122,17 +122,6 @@ describe('pooledCohort2013', () => {
       })
   })
 
-  it('calculates lifetime risk of an ASCVD event correctly for case list.', () => {
-    testCases
-      .map((c) => mapToDataPlusPooledCohort2013Result(c))
-      .filter(({ type } = c) => type === 'pooled13')
-      .forEach(({ ascvdData, lifetimeRisk: expected } = c) => {
-        const actual = pooledCohort2013(ascvdData).tenYearRisk
-        expect(actual).toBeLessThan(expected + resultVariance)
-        expect(actual).toBeGreaterThan(expected - resultVariance)
-      })
-  })
-
   it('calculates 10 yr risk for the white woman case in the ACC/AHA paper', () => {
     const data: ASCVDData = {
       age: 55,
