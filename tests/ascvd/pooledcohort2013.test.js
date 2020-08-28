@@ -1,4 +1,4 @@
-import { pooledCohort2013 } from '../../src/ascvd/'
+import { pooledCohort2013 } from '../../src/ascvd/pooledCohort2013'
 
 import type { ASCVDData } from './../../src/types/ASCVDData'
 import ErrorMessages from '../../src/errorMessages'

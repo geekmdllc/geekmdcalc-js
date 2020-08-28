@@ -1,4 +1,4 @@
-import { framingham } from '../../src/ascvd'
+import { framingham } from  "../../src/ascvd/framingham"
 import ErrorMessages from '../../src/errorMessages/'
 
 import type { ASCVDData } from '../../src/types/ASCVDData'
