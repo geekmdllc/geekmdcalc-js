@@ -4,10 +4,9 @@ Travis Nesbit, MD (geekmdtravis) | GeekMD, LLC
 
 ## Build Status
 
-| Main                                                                                                                              | Development                                                                                                                            |Coverage|
-| --------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |--------|
-| [![Build Status](https://travis-ci.org/geekmdllc/geekmdcalc-js.svg?branch=master)](https://travis-ci.org/geekmdllc/geekmdcalc-js) | [![Build Status](https://travis-ci.org/geekmdllc/geekmdcalc-js.svg?branch=development)](https://travis-ci.org/geekmdllc/geekmdcalc-js) |[![Coverage Status](https://coveralls.io/repos/github/geekmdllc/geekmdcalc-js/badge.svg?branch=main)](https://coveralls.io/github/geekmdllc/geekmdcalc-js?branch=main)|
-
+| Main                                                                                                                              | Development                                                                                                                            | Coverage                                                                                                                                                               |
+| --------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [![Build Status](https://travis-ci.org/geekmdllc/geekmdcalc-js.svg?branch=master)](https://travis-ci.org/geekmdllc/geekmdcalc-js) | [![Build Status](https://travis-ci.org/geekmdllc/geekmdcalc-js.svg?branch=development)](https://travis-ci.org/geekmdllc/geekmdcalc-js) | [![Coverage Status](https://coveralls.io/repos/github/geekmdllc/geekmdcalc-js/badge.svg?branch=main)](https://coveralls.io/github/geekmdllc/geekmdcalc-js?branch=main) |
 
 ## Introduction
 
@@ -127,11 +126,11 @@ Branches should follow the following naming convention:
 
 ### Commit Messages
 
-General template: "`<[skip ci]> [#issue] - Message content goes here`" where content inside of `<` and `>` is optional.
+General template: "`<[ci skip]> [#issue] - Message content goes here`" where content inside of `<` and `>` is optional.
 
-Example: `[skip ci] #103 - Updated 'How can I help?' section of the README.md`
+Example: `[ci skip] #103 - Updated 'How can I help?' section of the README.md`
 
-- Commit's the `master` and `development` will be tested with [Travis CI](https://travis-ci.org) continuous integration system. If you feel that the commit does not need to be tested, then prepend `[skip ci]` to the commit message.
+- Commit's the `master` and `development` will be tested with [Travis CI](https://travis-ci.org) continuous integration system. If you feel that the commit does not need to be tested, then prepend `[ci skip]` to the commit message.
 - All Commit messages should include `#issue` in the message so that the issue and project boards can track properly.
 - Message content should be descriptive, but brief.
 
