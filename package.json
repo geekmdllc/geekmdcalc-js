@@ -7,15 +7,9 @@
     "build/**/*.js"
   ],
   "scripts": {
-<<<<<<< HEAD
-    "clean": "rimraf build/",
-    "coveralls": "jest --coverage && cat ./coverage/lcov.info | coveralls",
-    "build": "flow; rollup -c",
-=======
     "clean": "rimraf build/ coverage/",
     "coveralls": "jest --coverage && cat ./tests/coverage/lcov.info | coveralls",
     "build": "clean ; flow; rollup -c",
->>>>>>> development
     "test": "flow; jest"
   },
   "repository": {
