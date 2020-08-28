@@ -201,5 +201,9 @@ describe('pooledCohort2013', () => {
       isSmoker: false,
       isDiabetic: false,
     }
+    const result = pooledCohort2013(data).lifetimeRisk
+    const expected = 6.1
+
+    expect(result).toEqual(expected)
   })
 })

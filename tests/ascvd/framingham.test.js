@@ -167,9 +167,4 @@ describe('framingham', () => {
     expect(actual).toBeLessThan(expected + resultVariance)
     expect(actual).toBeGreaterThan(expected - resultVariance)
   })
-
-  // Test cases not yet implemented
-  it('calculates the average lifetime risk by points correctly', () => {
-    expect(true).toEqual(false)
-  })
 })
