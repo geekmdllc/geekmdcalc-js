@@ -1,4 +1,5 @@
 import { framingham } from '../../src/ascvd'
+import ErrorMessages from '../../src/errorMessages/'
 
 import type { ASCVDData } from '../../src/types/ASCVDData'
 
@@ -75,6 +76,23 @@ const mapToDataPlusFraminghamResult = (td) => {
 }
 
 describe('framingham', () => {
+  it('throws a range error for age less than 30', () => {
+    const data: ASCVDData = {
+      age: 29,
+      isDiabetic: false,
+      isGeneticMale: false,
+      isBlack: false,
+      isSmoker: true,
+      isOnBloodPressureMeds: false,
+      cholesterolTotal: 180,
+      cholesterolHDL: 47,
+      systolicBloodPressure: 124,
+    }
+    expect(() => framingham(data)).toThrow(
+      ErrorMessages.ascvd.framingham.ageLessThan30
+    )
+  })
+
   it("calculates 10 yr risk by points for 'case 1' from the Framingham Study", () => {
     const ascvdData: ASCVDData = {
       age: 61,

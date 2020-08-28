@@ -16,6 +16,8 @@ const framingham = (
     avgRiskMethod: 'constant',
   }
 ): FraminghamResult => {
+  if (data.age < 30)
+    throw new RangeError(ErrorMessages.ascvd.framingham.ageLessThan30)
   switch (options.calculationMethod.toLowerCase()) {
     case 'points':
       return framinghamByPoints(data)

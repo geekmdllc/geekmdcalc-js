@@ -1,13 +1,6 @@
 // @flow
 import type { ASCVDData, FraminghamResult } from '../types/ASCVDData'
 import { meanData } from './_framinghamData'
-import ErrorMessages from '../errorMessages'
-
-const {
-  ascvd: {
-    framingham: { byPoints: e },
-  },
-} = ErrorMessages
 
 // https://www.ahajournals.org/doi/10.1161/circulationaha.107.699579
 
@@ -21,9 +14,7 @@ const agePoints = (data: ASCVDData): number => {
 
 const agePointsFemale = (data: ASCVDData): number => {
   const { age: a } = data
-  if (a < 30) {
-    throw new RangeError(e.ageLessThan30)
-  } else if (a < 35) {
+  if (a < 35) {
     return 0
   } else if (a < 40) {
     return 2
@@ -48,9 +39,7 @@ const agePointsFemale = (data: ASCVDData): number => {
 
 const agePointsMale = (data: ASCVDData): number => {
   const { age: a } = data
-  if (a < 30) {
-    throw new RangeError(e.ageLessThan30)
-  } else if (a < 35) {
+  if (a < 35) {
     return 0
   } else if (a < 40) {
     return 2
