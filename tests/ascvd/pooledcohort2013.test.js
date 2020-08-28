@@ -127,7 +127,7 @@ describe('pooledCohort2013', () => {
       .map((c) => mapToDataPlusPooledCohort2013Result(c))
       .filter(({ type } = c) => type === 'pooled13')
       .forEach(({ ascvdData, lifetimeRisk: expected } = c) => {
-        const actual = pooledCohort2013(ascvdData).lifetimeRisk
+        const actual = pooledCohort2013(ascvdData).tenYearRisk
         expect(actual).toBeLessThan(expected + resultVariance)
         expect(actual).toBeGreaterThan(expected - resultVariance)
       })
@@ -146,7 +146,7 @@ describe('pooledCohort2013', () => {
       isDiabetic: false,
     }
 
-    const result = pooledCohort2013(data).lifetimeRisk
+    const result = pooledCohort2013(data).tenYearRisk
     const expected = 2.1
 
     expect(result).toEqual(expected)
@@ -164,7 +164,7 @@ describe('pooledCohort2013', () => {
       isSmoker: false,
       isDiabetic: false,
     }
-    const result = pooledCohort2013(data).lifetimeRisk
+    const result = pooledCohort2013(data).tenYearRisk
     const expected = 3.0
 
     expect(result).toEqual(expected)
@@ -183,7 +183,7 @@ describe('pooledCohort2013', () => {
       isDiabetic: false,
     }
 
-    const result = pooledCohort2013(data).lifetimeRisk
+    const result = pooledCohort2013(data).tenYearRisk
     const expected = 5.3
 
     expect(result).toEqual(expected)
@@ -201,9 +201,10 @@ describe('pooledCohort2013', () => {
       isSmoker: false,
       isDiabetic: false,
     }
-    const result = pooledCohort2013(data).lifetimeRisk
+    const result = pooledCohort2013(data).tenYearRisk
     const expected = 6.1
 
-    expect(result).toEqual(expected)
+    expect(result).toBeLessThan(expected + resultVariance)
+    expect(result).toBeGreaterThan(expected - resultVariance)
   })
 })
