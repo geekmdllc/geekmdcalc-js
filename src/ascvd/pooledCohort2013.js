@@ -51,9 +51,11 @@ const getBlackMalePooledCohort2013Result = (
     diabeticProduct
 
   const result: PooledCohort2013Result = {
-    tenYearRisk:
-      100 *
-      (1 - Math.pow(cd.survival.male.black, Math.exp(sumXB - md.male.black))),
+    tenYearRisk: evaluatePooledCohort2013Equation(
+      cd.survival.male.black,
+      sumXB,
+      md.male.black
+    ),
   }
 
   return result
@@ -62,7 +64,38 @@ const getBlackMalePooledCohort2013Result = (
 const getWhiteMalePooledCohort2013Result = (
   data: ASCVDData
 ): PooledCohort2013Result => {
-  throw new Error('Not implemented')
+  const lnAgeProduct = getWhiteMalelnAgeProduct(data)
+  const lnTCholProduct = getWhiteMaleTCholProdct(data)
+  const lnTCholXAgeProd = getWhiteMalelnAgeXlnTCholProduct(data)
+  const lnHDLProduct = getWhiteMalelnHDLProduct(data)
+  const lnHDLXAgeProd = getWhiteMalelnAgeXlnHDLProduct(data)
+  const lnSBPProduct = getWhiteMaleSBPProduct(data)
+  const smokerProduct = data.isSmoker
+    ? cd.regression.male.white.currentSmoker
+    : 0
+  const diabeticProduct = data.isDiabetic
+    ? cd.regression.male.white.diabetes
+    : 0
+
+  const sumXB =
+    lnAgeProduct +
+    lnTCholProduct +
+    lnTCholXAgeProd +
+    lnHDLProduct +
+    lnHDLXAgeProd +
+    lnSBPProduct +
+    smokerProduct +
+    diabeticProduct
+
+  const result: PooledCohort2013Result = {
+    tenYearRisk: evaluatePooledCohort2013Equation(
+      cd.survival.male.white,
+      sumXB,
+      md.male.white
+    ),
+  }
+
+  return result
 }
 
 const getFemalePooledCohort2013Result = (
@@ -83,6 +116,14 @@ const getWhiteFemalePooledCohort2013Result = (
   data: ASCVDData
 ): PooledCohort2013Result => {
   throw new Error('Not implemented')
+}
+
+const evaluatePooledCohort2013Equation = (
+  survival: number,
+  individualSum: number,
+  meanDataSum: number
+): number => {
+  return 100 * (1 - Math.pow(survival, Math.exp(individualSum - meanDataSum)))
 }
 
 const getBlackMalelnAgeProduct = (data): number => {
@@ -108,5 +149,46 @@ const getBlackMaleSBPProduct = (data): number => {
   const B = data.isOnBloodPressureMeds
     ? cd.regression.male.black.lnTreatedSystolicBP
     : cd.regression.male.black.lnUntreatedSystolicBP
+  return lnSBP * B
+}
+
+const getWhiteMalelnAgeProduct = (data): number => {
+  const lnAge = Math.log(data.age)
+  const B = cd.regression.male.white.lnAge
+  const lnAgeProduct = lnAge * B
+
+  return lnAgeProduct
+}
+const getWhiteMalelnHDLProduct = (data): number => {
+  const lnHDL = Math.log(data.cholesterolHDL)
+  const B = cd.regression.male.white.lnHDLC
+  return lnHDL * B
+}
+
+const getWhiteMalelnAgeXlnHDLProduct = (data): number => {
+  const lnAge = Math.log(data.age)
+  const lnHDL = Math.log(data.cholesterolHDL)
+  const B = cd.regression.male.white.lnAgeXlnHDLC
+  return lnAge * lnHDL * B
+}
+
+const getWhiteMaleTCholProdct = (data): number => {
+  const lnTChol = Math.log(data.cholesterolTotal)
+  const B = cd.regression.male.white.lnTotalChol
+  return lnTChol * B
+}
+
+const getWhiteMalelnAgeXlnTCholProduct = (data): number => {
+  const lnAge = Math.log(data.age)
+  const lnTChol = Math.log(data.cholesterolTotal)
+  const B = cd.regression.male.white.lnAgeXlnTotalChol
+  return lnAge * lnTChol * B
+}
+
+const getWhiteMaleSBPProduct = (data): number => {
+  const lnSBP = Math.log(data.systolicBloodPressure)
+  const B = data.isOnBloodPressureMeds
+    ? cd.regression.male.white.lnTreatedSystolicBP
+    : cd.regression.male.white.lnUntreatedSystolicBP
   return lnSBP * B
 }

@@ -149,7 +149,8 @@ describe('pooledCohort2013', () => {
     const result = pooledCohort2013(data).tenYearRisk
     const expected = 2.1
 
-    expect(result).toEqual(expected)
+    expect(result).toBeLessThan(expected + resultVariance)
+    expect(result).toBeGreaterThan(expected - resultVariance)
   })
 
   it('calculates 10 yr risk for the black woman case in the ACC/AHA paper', () => {
@@ -167,7 +168,8 @@ describe('pooledCohort2013', () => {
     const result = pooledCohort2013(data).tenYearRisk
     const expected = 3.0
 
-    expect(result).toEqual(expected)
+    expect(result).toBeLessThan(expected + resultVariance)
+    expect(result).toBeGreaterThan(expected - resultVariance)
   })
 
   it('calculates 10 yr risk for white man case in the ACC/AHA paper', () => {
@@ -186,7 +188,8 @@ describe('pooledCohort2013', () => {
     const result = pooledCohort2013(data).tenYearRisk
     const expected = 5.3
 
-    expect(result).toEqual(expected)
+    expect(result).toBeLessThan(expected + resultVariance)
+    expect(result).toBeGreaterThan(expected - resultVariance)
   })
 
   it('calculates  10 yr risk for the black man case in the ACC/AHA paper', () => {
