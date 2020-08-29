@@ -1,5 +1,6 @@
 // @flow
-import type { ASCVDData, PooledCohort2013Result } from '../types/ASCVDData'
+import type { PooledCohort2013Result } from '../types/PooledCohort2013Result'
+import type { ASCVDData } from '../types/ASCVDData'
 import {
   pooledCohort2013Coefficients as cd,
   pooledCohort2013MeanData as md,
@@ -9,7 +10,8 @@ import ErrorMessages from '../errorMessages'
 //https://www.onlinejacc.org/content/63/25_Part_B/2935/T6
 // Equation 1- S_10^e^[sum(XB) - sum(X_barB)]
 const pooledCohort2013 = (data: ASCVDData): PooledCohort2013Result => {
-  if (data.age < 40) throw new RangeError(ErrorMessages.ascvd.pooledCohort2013.ageLessThan40)
+  if (data.age < 40)
+    throw new RangeError(ErrorMessages.ascvd.pooledCohort2013.ageLessThan40)
   return getPooledCohort2013Result(data)
 }
 

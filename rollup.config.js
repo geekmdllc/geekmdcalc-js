@@ -7,5 +7,8 @@ export default {
     dir: 'build',
     format: 'cjs',
   },
-  plugins: [babel({ babelHelpers: 'runtime' }), nodeResolve()],
+  plugins: [
+    babel({ babelHelpers: 'runtime' }),
+    nodeResolve(),
+  ],
 }

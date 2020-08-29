@@ -1,5 +1,6 @@
 // @flow
-import type { ASCVDData, FraminghamResult } from '../types/ASCVDData'
+import type { FraminghamResult } from "../types/FraminghamResult"
+import type { ASCVDData } from "../types/ASCVDData"
 import { meanData } from './_framinghamData'
 
 // https://www.ahajournals.org/doi/10.1161/circulationaha.107.699579

@@ -1,10 +1,8 @@
 // @flow
 
-import type {
-  ASCVDData,
-  ASCVDOptions,
-  FraminghamResult,
-} from '../types/ASCVDData'
+import type { FraminghamResult } from "../types/FraminghamResult"
+import type { ASCVDOptions } from "../types/ASCVDOptions"
+import type { ASCVDData } from "../types/ASCVDData"
 import { framinghamByCoxRegression } from './_framinghamByCoxRegression'
 import ErrorMessages from '../errorMessages'
 import { framinghamByPoints } from './_framinghamByPoints'
