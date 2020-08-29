@@ -1,6 +1,7 @@
 // @flow
 
-import type { ASCVDData, FraminghamResult } from '../types/ASCVDData'
+import type { FraminghamResult } from "../types/FraminghamResult"
+import type { ASCVDData } from "../types/ASCVDData"
 import {
   meanData,
   regressionData,

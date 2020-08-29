@@ -6,6 +6,11 @@
   "files": [
     "build/**/*.js"
   ],
+  "jest": {
+    "coveragePathIgnorePatterns": [
+      "<rootDir>/src/errorMessages/*"
+    ]
+  },
   "scripts": {
     "clean": "rimraf build/ coverage/",
     "coveralls": "jest --coverage && cat ./coverage/lcov.info | coveralls",
@@ -22,7 +27,9 @@
     "url": "https://github.com/geekmdllc/geekmdcalc-js/issues"
   },
   "homepage": "https://github.com/geekmdllc/geekmdcalc-js#readme",
-  "dependencies": {},
+  "dependencies": {
+    "@rollup/plugin-commonjs": "^15.0.0"
+  },
   "devDependencies": {
     "@babel/cli": "^7.10.5",
     "@babel/core": "^7.11.4",
